@@ -4,15 +4,24 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const VendorProfile = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImageIndex, setLightboxImageIndex] = useState(0);
 
   const portfolioImages = [
     'https://images.unsplash.com/photo-1594736797933-d0101ba2fe65?w=600&h=800&fit=crop&crop=face',
     'https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=600&h=800&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&h=800&fit=crop&crop=face'
+    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&h=800&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=800&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=800&fit=crop&crop=face'
   ];
 
   const services = [
@@ -42,16 +51,8 @@ const VendorProfile = () => {
     }
   ];
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % portfolioImages.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + portfolioImages.length) % portfolioImages.length);
-  };
-
   const openLightbox = (index: number) => {
-    setCurrentImageIndex(index);
+    setLightboxImageIndex(index);
     setLightboxOpen(true);
   };
 
@@ -133,56 +134,39 @@ const VendorProfile = () => {
       <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">Portfolio</h2>
-          <div className="relative max-w-md mx-auto">
-            <AspectRatio ratio={3/4} className="overflow-hidden rounded-2xl shadow-2xl">
-              <div className="relative w-full h-full">
-                <img
-                  src={portfolioImages[currentImageIndex]}
-                  alt={`Portfolio ${currentImageIndex + 1}`}
-                  className="w-full h-full object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
-                  onClick={() => openLightbox(currentImageIndex)}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-                
-                {/* Navigation Buttons */}
-                <button
-                  onClick={prevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition-all duration-300"
-                >
-                  <ChevronLeft className="h-6 w-6 text-gray-700" />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition-all duration-300"
-                >
-                  <ChevronRight className="h-6 w-6 text-gray-700" />
-                </button>
-
-                {/* View Full Button */}
-                <button
-                  onClick={() => openLightbox(currentImageIndex)}
-                  className="absolute bottom-4 right-4 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-4 py-2 rounded-lg font-semibold shadow-lg transition-all duration-300"
-                >
-                  <Eye className="h-4 w-4 mr-2 inline" />
-                  View Full
-                </button>
-              </div>
-            </AspectRatio>
-
-            {/* Thumbnail Navigation */}
-            <div className="flex justify-center gap-2 mt-4">
-              {portfolioImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex 
-                      ? 'bg-gradient-to-r from-rose-500 to-pink-600 scale-125' 
-                      : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
-                />
-              ))}
-            </div>
+          <div className="relative max-w-4xl mx-auto">
+            <Carousel className="w-full">
+              <CarouselContent className="-ml-4">
+                {portfolioImages.map((image, index) => (
+                  <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <div className="group">
+                      <AspectRatio ratio={3/4} className="overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div className="relative w-full h-full">
+                          <img
+                            src={image}
+                            alt={`Portfolio ${index + 1}`}
+                            className="w-full h-full object-cover cursor-pointer transition-transform duration-300 group-hover:scale-105"
+                            onClick={() => openLightbox(index)}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                          
+                          {/* View Full Button */}
+                          <button
+                            onClick={() => openLightbox(index)}
+                            className="absolute bottom-4 right-4 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-3 py-2 rounded-lg font-semibold shadow-lg transition-all duration-300 opacity-0 group-hover:opacity-100"
+                          >
+                            <Eye className="h-4 w-4 mr-1 inline" />
+                            View
+                          </button>
+                        </div>
+                      </AspectRatio>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-4" />
+              <CarouselNext className="right-4" />
+            </Carousel>
           </div>
         </div>
       </section>
@@ -359,8 +343,8 @@ const VendorProfile = () => {
             </button>
             <AspectRatio ratio={3/4}>
               <img
-                src={portfolioImages[currentImageIndex]}
-                alt={`Portfolio ${currentImageIndex + 1}`}
+                src={portfolioImages[lightboxImageIndex]}
+                alt={`Portfolio ${lightboxImageIndex + 1}`}
                 className="w-full h-full object-cover rounded-lg"
               />
             </AspectRatio>
@@ -368,9 +352,9 @@ const VendorProfile = () => {
               {portfolioImages.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentImageIndex(index)}
+                  onClick={() => setLightboxImageIndex(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex 
+                    index === lightboxImageIndex 
                       ? 'bg-white scale-125' 
                       : 'bg-white/50 hover:bg-white/75'
                   }`}
