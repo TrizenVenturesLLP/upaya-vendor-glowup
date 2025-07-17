@@ -12,16 +12,51 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+// Simple Navbar component
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  return (
+    <nav className="w-full bg-white/80 backdrop-blur shadow-sm fixed top-0 left-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl font-bold bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-transparent tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>Happy Moments</span>
+        </div>
+        <div className="hidden md:flex gap-8 text-gray-700 font-medium">
+          <a href="#" className="hover:text-rose-500 transition-colors">Home</a>
+          <a href="#portfolio" className="hover:text-rose-500 transition-colors">Portfolio</a>
+          <a href="#reviews" className="hover:text-rose-500 transition-colors">Reviews</a>
+          <a href="#contact" className="hover:text-rose-500 transition-colors">Contact</a>
+        </div>
+        <button className="md:hidden p-2 rounded hover:bg-rose-100" onClick={() => setMenuOpen(!menuOpen)}>
+          <svg className="h-6 w-6 text-rose-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d={menuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'} />
+          </svg>
+        </button>
+      </div>
+      {menuOpen && (
+        <div className="md:hidden bg-white border-t shadow px-4 py-2 flex flex-col gap-2">
+          <a href="#" className="py-2 hover:text-rose-500 transition-colors">Home</a>
+          <a href="#portfolio" className="py-2 hover:text-rose-500 transition-colors">Portfolio</a>
+          <a href="#reviews" className="py-2 hover:text-rose-500 transition-colors">Reviews</a>
+          <a href="#contact" className="py-2 hover:text-rose-500 transition-colors">Contact</a>
+        </div>
+      )}
+    </nav>
+  );
+};
+
 const VendorProfile = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImageIndex, setLightboxImageIndex] = useState(0);
+  const [showServices, setShowServices] = useState(false);
 
   const portfolioImages = [
-    'https://images.unsplash.com/photo-1594736797933-d0101ba2fe65?w=600&h=800&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=600&h=800&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&h=800&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=800&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=800&fit=crop&crop=face'
+    '/assets/image1.jpg',
+    '/assets/image2.jpg',
+    '/assets/image3.jpg',
+    '/assets/image4.jpg',
+    '/assets/image5.jpg',
+    '/assets/image6.jpg'
   ];
 
   const services = [
@@ -59,114 +94,136 @@ const VendorProfile = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-amber-50">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-rose-100 via-pink-50 to-amber-100">
-        <div className="absolute inset-0 bg-gradient-to-r from-rose-200/20 to-amber-200/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 py-12 sm:py-16">
-          <div className="flex flex-col lg:flex-row items-center gap-8">
-            {/* Profile Image */}
-            <div className="flex-shrink-0">
-              <div className="relative">
-                <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-full bg-gradient-to-br from-rose-300 to-amber-300 p-1">
-                  <img
-                    src="https://images.unsplash.com/photo-1494790108755-2616c9c904e0?w=200&h=200&fit=crop&crop=face"
-                    alt="Nagma Narasimha"
-                    className="w-full h-full rounded-full object-cover"
-                  />
-                </div>
-                <div className="absolute -bottom-2 -right-2">
-                  <Badge className="bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-900 font-semibold px-3 py-1">
-                    🥇 Gold
-                  </Badge>
-                </div>
-              </div>
-            </div>
+      <section className="flex justify-center items-center bg-gradient-to-br from-rose-50 via-white to-amber-50 py-6 px-4 min-h-[60vh]">
+  <div className="w-full max-w-6xl bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row h-[60vh]">
+    
+    {/* Left Image */}
+    <div className="md:w-1/2 w-full h-[50%] md:h-full overflow-hidden">
+      <img
+        src="/assets/profile.jpg"
+        alt="Nagma Narasimha"
+        className="w-full h-full object-cover"
+      />
+    </div>
 
-            {/* Vendor Info */}
-            <div className="flex-1 text-center lg:text-left">
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2 bg-gradient-to-r from-rose-600 to-amber-600 bg-clip-text text-transparent">
-                Nagma Narasimha
-              </h1>
-              <p className="text-xl text-gray-700 mb-4 font-medium">
-                Makeup Artist | Hairstylist | Saree Draping Expert
-              </p>
-              
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-4">
-                <MapPin className="h-5 w-5 text-rose-600" />
-                <span className="text-gray-700 font-medium">Servicing Telangana</span>
-              </div>
+    {/* Right Info Section */}
+    <div className="md:w-1/2 w-full p-6 md:p-10 flex flex-col justify-between">
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Nagma Narasimha
+          </h2>
+          <span className="bg-emerald-100 text-emerald-700 text-sm font-medium px-2 py-1 rounded-md">
+            HM Recommended
+          </span>
+        </div>
 
-              <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
-                <div className="flex items-center gap-1">
-                  <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
-                  <span className="font-bold text-gray-900">9/10</span>
-                </div>
-                <Badge variant="secondary" className="bg-gradient-to-r from-amber-100 to-rose-100 text-amber-800 border-amber-200">
-                  <Award className="h-4 w-4 mr-1" />
-                  HM Recommended Artist
-                </Badge>
-              </div>
+        <p className="text-base md:text-lg text-gray-700 font-medium mb-1">
+          Makeup Artist | Hairstylist | Saree Draping Expert
+        </p>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                <Button className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
-                  <MessageCircle className="h-4 w-4 mr-2" />
-                  Message Now
-                </Button>
-                <Button className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
-                  <Phone className="h-4 w-4 mr-2" />
-                  Call Now
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-2 border-pink-300 text-pink-700 hover:bg-pink-50 px-6 py-2 rounded-xl font-semibold transition-all duration-300"
-                  onClick={() => window.open('https://www.instagram.com/telugu_ammayi_makeovers', '_blank')}
-                >
-                  <Instagram className="h-4 w-4 mr-2" />
-                  Instagram
-                </Button>
-              </div>
-            </div>
+        <div className="flex items-center text-gray-600 text-sm mt-2 mb-3">
+          <MapPin className="h-4 w-4 text-rose-500 mr-1" />
+          Servicing Telangana
+        </div>
+
+        <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center text-yellow-500 font-semibold text-sm">
+            <Star className="h-4 w-4 mr-1 fill-yellow-400" />
+            9/10
+          </div>
+          <span className="bg-pink-100 text-pink-700 text-sm px-2 py-1 rounded-md">
+            HD Makeup Available
+          </span>
+        </div>
+
+        <p className="text-xl font-semibold text-gray-800 mt-2">
+          ₹15,000 <span className="text-sm font-medium text-gray-500">Bridal Makeup</span>
+        </p>
+
+        {/* Show Services Button */}
+        <button
+          className="mt-6 mb-2 px-5 py-2 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl font-semibold shadow hover:from-rose-600 hover:to-pink-600 transition-all"
+          onClick={() => setShowServices(true)}
+        >
+          Show Services
+        </button>
+
+        {/* Improved Reviews UI */}
+        <div className="flex items-center gap-2 mt-4">
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-yellow-200 to-amber-300 shadow-md">
+            <Star className="h-6 w-6 text-yellow-500 fill-yellow-400" />
+          </div>
+          <span className="font-semibold text-gray-800">Reviews</span>
+          <span className="text-sm text-gray-500">({reviews.length})</span>
+        </div>
+
+      </div>
+
+      {/* Icon-only Action Buttons */}
+      <div className="flex gap-4 mt-8 md:mt-12">
+        <button
+          className="w-12 h-12 flex items-center justify-center rounded-full bg-rose-100 hover:bg-rose-200 text-rose-600 shadow transition-colors"
+          aria-label="Message Now"
+        >
+          <MessageCircle className="h-6 w-6" />
+        </button>
+        <button
+          className="w-12 h-12 flex items-center justify-center rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-600 shadow transition-colors"
+          aria-label="Call Now"
+        >
+          <Phone className="h-6 w-6" />
+        </button>
+        <button
+          className="w-12 h-12 flex items-center justify-center rounded-full bg-pink-100 hover:bg-pink-200 text-pink-600 shadow transition-colors"
+          aria-label="Instagram"
+          onClick={() => window.open('https://www.instagram.com/telugu_ammayi_makeovers', '_blank')}
+        >
+          <Instagram className="h-6 w-6" />
+        </button>
+      </div>
+
+      {/* Services Modal */}
+      {showServices && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative animate-fade-in">
+            <button
+              className="absolute top-3 right-3 text-gray-400 hover:text-rose-500 text-2xl"
+              onClick={() => setShowServices(false)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <h3 className="text-2xl font-bold mb-4 text-gray-900 text-center">Services Offered</h3>
+            <ul className="space-y-2">
+              {services.map((service, idx) => (
+                <li key={idx} className="px-4 py-2 rounded-lg bg-rose-50 text-gray-800 font-medium shadow-sm">
+                  {service}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </section>
+      )}
+    </div>
+  </div>
+</section>
+
 
       {/* Portfolio Carousel */}
       <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">Portfolio</h2>
-          <div className="relative max-w-4xl mx-auto">
-            <Carousel className="w-full">
-              <CarouselContent className="-ml-4">
-                {portfolioImages.map((image, index) => (
-                  <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <div className="group">
-                      <AspectRatio ratio={3/4} className="overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-                        <div className="relative w-full h-full">
-                          <img
-                            src={image}
-                            alt={`Portfolio ${index + 1}`}
-                            className="w-full h-full object-cover cursor-pointer transition-transform duration-300 group-hover:scale-105"
-                            onClick={() => openLightbox(index)}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-                          
-                          {/* View Full Button */}
-                          <button
-                            onClick={() => openLightbox(index)}
-                            className="absolute bottom-4 right-4 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-3 py-2 rounded-lg font-semibold shadow-lg transition-all duration-300 opacity-0 group-hover:opacity-100"
-                          >
-                            <Eye className="h-4 w-4 mr-1 inline" />
-                            View
-                          </button>
-                        </div>
-                      </AspectRatio>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-4" />
-              <CarouselNext className="right-4" />
-            </Carousel>
+          <div className="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
+            {portfolioImages.map((image, index) => (
+              <div key={index} className="break-inside-avoid mb-4 rounded-2xl shadow-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-shadow duration-300" onClick={() => openLightbox(index)}>
+                <img
+                  src={image}
+                  alt={`Portfolio ${index + 1}`}
+                  className="w-full h-auto object-cover rounded-2xl transition-transform duration-300 hover:scale-105"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -312,24 +369,6 @@ const VendorProfile = () => {
       </section>
 
       {/* CTA Footer */}
-      <section className="sticky bottom-0 z-50 bg-gradient-to-r from-rose-600 to-pink-700 shadow-2xl">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Button className="bg-white text-rose-600 hover:bg-gray-50 px-6 py-2 rounded-xl font-semibold shadow-lg">
-              <Calendar className="h-4 w-4 mr-2" />
-              Schedule Meeting
-            </Button>
-            <Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-xl font-semibold shadow-lg">
-              <MessageCircle className="h-4 w-4 mr-2" />
-              Message Now
-            </Button>
-            <Button className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded-xl font-semibold shadow-lg">
-              <Bookmark className="h-4 w-4 mr-2" />
-              Bookmark
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* Lightbox Modal */}
       {lightboxOpen && (
@@ -368,4 +407,13 @@ const VendorProfile = () => {
   );
 };
 
-export default VendorProfile;
+const PageWithNavbar = () => (
+  <>
+    <Navbar />
+    <div className="pt-20"> {/* Add top padding to avoid overlap with fixed navbar */}
+      <VendorProfile />
+    </div>
+  </>
+);
+
+export default PageWithNavbar;
