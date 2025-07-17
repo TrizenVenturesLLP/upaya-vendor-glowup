@@ -1,18 +1,18 @@
-
 import React, { useState } from 'react';
 import { Star, Phone, MessageCircle, Instagram, MapPin, Award, Clock, Car, Plane, CheckCircle, Calendar, Bookmark, Eye, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const VendorProfile = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const portfolioImages = [
-    'https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=800&h=600&fit=crop',
-    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&h=600&fit=crop',
-    'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=800&h=600&fit=crop'
+    'https://images.unsplash.com/photo-1594736797933-d0101ba2fe65?w=600&h=800&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=600&h=800&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&h=800&fit=crop&crop=face'
   ];
 
   const services = [
@@ -133,39 +133,41 @@ const VendorProfile = () => {
       <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">Portfolio</h2>
-          <div className="relative max-w-4xl mx-auto">
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-              <img
-                src={portfolioImages[currentImageIndex]}
-                alt={`Portfolio ${currentImageIndex + 1}`}
-                className="w-full h-96 object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
-                onClick={() => openLightbox(currentImageIndex)}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-              
-              {/* Navigation Buttons */}
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition-all duration-300"
-              >
-                <ChevronLeft className="h-6 w-6 text-gray-700" />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition-all duration-300"
-              >
-                <ChevronRight className="h-6 w-6 text-gray-700" />
-              </button>
+          <div className="relative max-w-md mx-auto">
+            <AspectRatio ratio={3/4} className="overflow-hidden rounded-2xl shadow-2xl">
+              <div className="relative w-full h-full">
+                <img
+                  src={portfolioImages[currentImageIndex]}
+                  alt={`Portfolio ${currentImageIndex + 1}`}
+                  className="w-full h-full object-cover cursor-pointer transition-transform duration-300 hover:scale-105"
+                  onClick={() => openLightbox(currentImageIndex)}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                
+                {/* Navigation Buttons */}
+                <button
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition-all duration-300"
+                >
+                  <ChevronLeft className="h-6 w-6 text-gray-700" />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition-all duration-300"
+                >
+                  <ChevronRight className="h-6 w-6 text-gray-700" />
+                </button>
 
-              {/* View Full Button */}
-              <button
-                onClick={() => openLightbox(currentImageIndex)}
-                className="absolute bottom-4 right-4 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-4 py-2 rounded-lg font-semibold shadow-lg transition-all duration-300"
-              >
-                <Eye className="h-4 w-4 mr-2 inline" />
-                View Full
-              </button>
-            </div>
+                {/* View Full Button */}
+                <button
+                  onClick={() => openLightbox(currentImageIndex)}
+                  className="absolute bottom-4 right-4 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-4 py-2 rounded-lg font-semibold shadow-lg transition-all duration-300"
+                >
+                  <Eye className="h-4 w-4 mr-2 inline" />
+                  View Full
+                </button>
+              </div>
+            </AspectRatio>
 
             {/* Thumbnail Navigation */}
             <div className="flex justify-center gap-2 mt-4">
@@ -348,18 +350,20 @@ const VendorProfile = () => {
       {/* Lightbox Modal */}
       {lightboxOpen && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <div className="relative max-w-4xl w-full">
+          <div className="relative max-w-sm w-full">
             <button
               onClick={() => setLightboxOpen(false)}
               className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
             >
               <X className="h-8 w-8" />
             </button>
-            <img
-              src={portfolioImages[currentImageIndex]}
-              alt={`Portfolio ${currentImageIndex + 1}`}
-              className="w-full h-auto rounded-lg"
-            />
+            <AspectRatio ratio={3/4}>
+              <img
+                src={portfolioImages[currentImageIndex]}
+                alt={`Portfolio ${currentImageIndex + 1}`}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </AspectRatio>
             <div className="flex justify-center gap-2 mt-4">
               {portfolioImages.map((_, index) => (
                 <button
