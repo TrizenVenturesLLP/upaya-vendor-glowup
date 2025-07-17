@@ -337,7 +337,7 @@ const VendorProfile = () => {
           <div className="relative max-w-sm w-full">
             <button
               onClick={() => setLightboxOpen(false)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
             >
               <X className="h-8 w-8" />
             </button>
