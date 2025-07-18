@@ -143,9 +143,31 @@ const VendorProfile = () => {
                       HD Makeup Available
                     </span>
                   </div>
-                  <p className="text-xl font-semibold text-gray-800 mt-2">
+                  <p className="text-xl font-semibold text-gray-800 mt-2 mb-4">
                     ₹15,000 <span className="text-sm font-medium text-gray-500">Bridal Makeup</span>
                   </p>
+                  {/* Social Action Buttons */}
+                  <div className="flex gap-4 mb-2">
+                    <button
+                      className="w-12 h-12 flex items-center justify-center rounded-full bg-rose-100 hover:bg-rose-200 text-rose-600 shadow transition-colors"
+                      aria-label="Message Now"
+                    >
+                      <MessageCircle className="h-6 w-6" />
+                    </button>
+                    <button
+                      className="w-12 h-12 flex items-center justify-center rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-600 shadow transition-colors"
+                      aria-label="Call Now"
+                    >
+                      <Phone className="h-6 w-6" />
+                    </button>
+                    <button
+                      className="w-12 h-12 flex items-center justify-center rounded-full bg-pink-100 hover:bg-pink-200 text-pink-600 shadow transition-colors"
+                      aria-label="Instagram"
+                      onClick={() => window.open('https://www.instagram.com/telugu_ammayi_makeovers', '_blank')}
+                    >
+                      <Instagram className="h-6 w-6" />
+                    </button>
+                  </div>
                 </div>
               </TabsContent>
               <TabsContent value="services">
