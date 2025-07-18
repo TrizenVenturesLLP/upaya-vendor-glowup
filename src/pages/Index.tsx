@@ -227,9 +227,9 @@ const VendorProfile = () => {
       {/* Split Layout: Portfolio Images (left) + Info Blocks (right) */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 px-4 py-12">
         {/* Left: Masonry Images */}
-        <div className="md:w-1/2">
+        <div className="md:w-2/3">
           <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">Portfolio</h2>
-          <div className="columns-2 gap-4 space-y-4">
+          <div className="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
             {portfolioImages.map((image, index) => (
               <div
                 key={index}
@@ -245,126 +245,66 @@ const VendorProfile = () => {
             ))}
           </div>
         </div>
-        {/* Right: Info Blocks */}
-        <div className="md:w-1/2 flex flex-col gap-6">
-          {/* Services Offered */}
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">Services Offered</h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+        {/* Right: Info Block in Card */}
+        <div className="md:w-1/3 flex flex-col">
+          <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">Services Offered</h2>
+          <div className="w-full bg-[#FFF8ED] rounded-2xl shadow p-8 flex flex-col gap-8 justify-center">
+            <ul className="list-disc list-inside text-gray-800 mb-8 text-base leading-relaxed">
               {services.map((service, index) => (
-                <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white/80 backdrop-blur-sm border-rose-100">
-                  <CardContent className="p-4 text-center">
-                    <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-rose-100 to-amber-100 rounded-full flex items-center justify-center group-hover:from-rose-200 group-hover:to-amber-200 transition-all duration-300">
-                      <CheckCircle className="h-6 w-6 text-rose-600" />
-                    </div>
-                    <p className="font-semibold text-gray-800 text-sm">{service}</p>
-                  </CardContent>
-                </Card>
+                <li key={index}>{service}</li>
               ))}
+            </ul>
+            <div>
+              <h3 className="text-2xl font-bold mb-2 text-gray-900">Pricing & Booking</h3>
+              <ul className="list-disc list-inside text-gray-800 mb-4 text-base leading-relaxed">
+                <li><strong>Price Range:</strong> ₹5,000 – ₹1,00,000</li>
+                <li><strong>Advance:</strong> 20% upfront</li>
+                <li><strong>Trial Makeup:</strong> Paid trial available</li>
+                <li><strong>Booking Notice:</strong> Minimum 5 days in advance</li>
+              </ul>
             </div>
-          </div>
-          {/* Pricing & Booking and Special Features */}
-          <div className="flex flex-col gap-6">
-            <div className="bg-white rounded-2xl shadow p-6">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <span className="text-3xl mr-3">💰</span>
-                Pricing & Booking
-              </h3>
-              <div className="space-y-4">
-                <div className="text-center p-6 bg-gradient-to-r from-rose-500 to-pink-600 rounded-2xl text-white">
-                  <p className="text-lg font-semibold mb-2">Price Range</p>
-                  <p className="text-3xl font-bold">₹5,000 – ₹1,00,000</p>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
-                    <span><strong>Advance:</strong> 20% upfront</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
-                    <span><strong>Trial Makeup:</strong> Paid trial available</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
-                    <span><strong>Booking Notice:</strong> Minimum 5 days in advance</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white rounded-2xl shadow p-6">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <span className="text-3xl mr-3">📦</span>
-                Special Features
-              </h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-200">
-                  <CheckCircle className="h-6 w-6 text-emerald-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold text-emerald-800">Premium Products</p>
-                    <p className="text-sm text-emerald-700">High-end makeup brands only</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
-                  <Car className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold text-blue-800">Self-Arranged Transport</p>
-                    <p className="text-sm text-blue-700">No burden on client</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
-                  <Plane className="h-6 w-6 text-purple-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold text-purple-800">Destination Events</p>
-                    <p className="text-sm text-purple-700">Covered within Telangana</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Customer Reviews */}
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">Customer Reviews</h2>
-            <div className="grid md:grid-cols-1 gap-6">
-              {reviews.map((review, index) => (
-                <Card key={index} className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-1 mb-2">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                    <p className="text-gray-700 mb-2 italic">"{review.text}"</p>
-                    <div>
-                      <p className="font-semibold text-gray-900">{review.name}</p>
-                      <p className="text-sm text-gray-600">{review.event}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-          {/* Badge Criteria */}
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">Badge Criteria</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-amber-100 to-yellow-100 p-6 rounded-2xl border border-amber-200">
-                <div className="text-4xl mb-3">🥇</div>
-                <h3 className="font-bold text-amber-800 mb-2">Gold Badge</h3>
-                <p className="text-amber-700">9–10 Rating</p>
-              </div>
-              <div className="bg-gradient-to-br from-gray-100 to-slate-100 p-6 rounded-2xl border border-gray-200">
-                <div className="text-4xl mb-3">🥈</div>
-                <h3 className="font-bold text-gray-800 mb-2">Silver Badge</h3>
-                <p className="text-gray-700">7–8.9 Rating</p>
-              </div>
-              <div className="bg-gradient-to-br from-orange-100 to-amber-100 p-6 rounded-2xl border border-orange-200">
-                <div className="text-4xl mb-3">🥉</div>
-                <h3 className="font-bold text-orange-800 mb-2">Bronze Badge</h3>
-                <p className="text-orange-700">&lt;7 Rating</p>
-              </div>
+            <div>
+              <h3 className="text-2xl font-bold mb-2 text-gray-900">Special Features</h3>
+              <ul className="list-disc list-inside text-gray-800 text-base leading-relaxed">
+                <li><strong>Premium Products:</strong> High-end makeup brands only</li>
+                <li><strong>Self-Arranged Transport:</strong> No burden on client</li>
+                <li><strong>Destination Events:</strong> Covered within Telangana</li>
+              </ul>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Customer Reviews - Full Width Section */}
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">Customer Reviews</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {reviews.map((review, index) => (
+            <Card key={index} className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-1 mb-2">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-2 italic">"{review.text}"</p>
+                <div>
+                  <p className="font-semibold text-gray-900">{review.name}</p>
+                  <p className="text-sm text-gray-600">{review.event}</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+      {/* Badge Criteria Info - Simple Points */}
+      <div className="max-w-4xl mx-auto px-4 pb-12 text-center text-gray-700 text-sm">
+        <div className="font-semibold mb-2">Badge Criteria:</div>
+        <ul className="list-disc list-inside inline-block text-left">
+          <li><span className="font-bold">Gold Badge</span>: 9–10 Rating</li>
+          <li><span className="font-bold">Silver Badge</span>: 7–8.9 Rating</li>
+          <li><span className="font-bold">Bronze Badge</span>: &lt;7 Rating</li>
+        </ul>
       </div>
 
       {/* Lightbox Modal */}
